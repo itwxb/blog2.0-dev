@@ -10,17 +10,26 @@
     >
       <div class="h-full flex flex-col overflow-hidden">
         <!-- Logo & Toggle 区域 -->
-        <div class="h-16 flex items-center justify-between border-b border-gray-100 px-4 shrink-0 overflow-hidden">
+        <div class="h-16 flex items-center justify-between border-b border-gray-100 px-4 shrink-0 overflow-hidden group/sidebar-header">
           <div class="flex items-center min-w-max">
-            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-blue-200">
-              <Icon name="lucide:rocket" class="text-white w-6 h-6 animate-pulse-slow" />
+            <div class="relative w-10 h-10 flex items-center justify-center shrink-0">
+              <!-- 呼吸灯底影 -->
+              <div class="absolute inset-0 bg-blue-500/20 rounded-xl blur-lg animate-pulse-slow"></div>
+              <!-- 背景渐变层 -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-xl shadow-[0_4px_12px_rgba(37,99,235,0.3)] transition-transform duration-500 group-hover/sidebar-header:scale-110 group-hover/sidebar-header:rotate-6"></div>
+              <!-- 内部高光边缘 -->
+              <div class="absolute inset-[1px] border border-white/20 rounded-[11px] z-10"></div>
+              <Icon name="lucide:rocket" class="relative z-20 text-white w-5 h-5 -rotate-12 transition-all duration-500 group-hover/sidebar-header:rotate-0 group-hover/sidebar-header:scale-110 animate-pulse-slow" />
             </div>
-            <span 
-              class="ml-3 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 transition-all duration-300 whitespace-nowrap"
+            <div 
+              class="ml-3 flex items-baseline transition-all duration-300"
               :class="isSidebarCollapsed ? 'lg:opacity-0 lg:w-0 lg:ml-0' : 'opacity-100'"
             >
-              王勇博的博客
-            </span>
+              <span class="text-lg font-black tracking-tighter text-slate-800 uppercase">
+                wang<span class="text-blue-600">yongbo</span>
+              </span>
+              <span class="ml-0.5 text-xs font-bold text-slate-400">.com</span>
+            </div>
           </div>
           
           <!-- 桌面端收起按钮 (移至顶部) -->
