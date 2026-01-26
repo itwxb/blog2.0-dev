@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>随机数生成</title>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <!-- 引入 layui.css -->
+  <link rel="stylesheet" href="http://unpkg.com/layui@2.6.8/dist/css/layui.css">
+
+
+  <!-- 引入 layui.js -->
+  <script src="http://unpkg.com/layui@2.6.8/dist/layui.js">
+  </script>
+  <link rel="stylesheet" href="index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!--注意修改相对位置-->
+
+</head>
+
+<body class="layui-layout-body">
+  <!-- <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script> -->
+  <!-- <script src="https://cdn-mfstudio.oss-cn-beijing.aliyuncs.com/Layui/layui.js"></script> -->
+  <!-- <script src="https://cdn-mfstudio.oss-cn-beijing.aliyuncs.com/Clipboard/dist/clipboard.min.js"></script> -->
+
+  <div class="layui-body">
+
+    <form class="layui-form" action="">
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">车间：</label>
+        <div class="layui-input-block">
+          <select name="workshop" id="workshop" lay-verify="required">
+            <option value="">请选择一个车间</option>
+            <option name="workshopAll" value="K07-2F-X-talk-CSC-VENT2">K07-2F-X-talk-CSC-VENT2</option>
+            <option name="workshopAll" value="K07-2F-SWDL-SS-Ironman">K07-2F-SWDL-SS-Ironman</option>
+            <option name="workshopAll" value="K07-2F-X-k-CC-V2-P6.7.10-AT-PT">K07-2F-X-k-CC-V2-P6.7.10-AT-PT</option>
+            <option name="workshopAll" value="K02-2F">K02-2F</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">班次：</label>
+        <div class="layui-input-block">
+          <input type="radio" name="shift" id="day-shift" value="白班" title="白班" checked>
+          <input type="radio" name="shift" id="night-shift" value="夜班" title="夜班">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">产量：</label>
+        <div class="layui-input-block">
+          <input type="radio" name="yield" id="yield-5000" value="5000" title="5000">
+          <input type="radio" name="yield" id="yield-10000" value="10000" title="10000" checked>
+          <input type="radio" name="yield" id="yield-4000" value="4000" title="4000">
+        </div>
+      </div>
+
+
+    </form>
+
+    <script>
+      //Demo
+      layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+          layer.msg(JSON.stringify(data.field));
+          return false;
+        });
+      });
+    </script>
+
+    <div class="layui-inline">
+      <fieldset class="layui-elem-field" style="border-top-right-radius:5px;width:100%;">
+        <legend>数据展示</legend>
+        <div class="layui-field-box">
+
+          <form class="layui-form">
+            <div class="layui-form-item">
+              <div class="layui-input-block center-btn">
+                <button class="layui-btn" type="button" onclick="itemcreate();">生成</button>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <div class="layui-input-inline">
+                <p id="shield-yml" style="height:100%;overflow-y: scroll;" class="layui-textarea"></p>
+              </div>
+            </div>
+            <div class="layui-form-item ">
+              <div class="layui-input-block center-btn">
+                <button class="layui-btn" type="button" onclick="copy('Copyres');">复制</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="footer"></div>
+    <!-- <script src="https://mcbjq.com/js/editor_footer.js"></script> -->
+  </div>
+
+  <!--注意修改相对位置-->
+
+  <script>
+    function copyflag() {
+      layui.use('layer', function () {
+        var layer = layui.layer;
+        var clipboard = new ClipboardJS('#copy', {
+          text: function () {
+            return '§';
+          }
+        });
+        clipboard.on("success", function (e) {
+
+          layer.msg("复制成功", {
+            icon: 1,
+            time: 1000
+          });
+          clipboard.destroy();
+        });
+        clipboard.on("error", function (e) {
+
+        });
+        document.getElementById('copy').click(); //解决clipboard二次点击生效问题
+        clipboard.destroy();
+
+      });
+    }
+
+    // 日期
+    var resNowDates = null
+
+    // 获取随机数
+    function getRandom(min) {
+      // var yield = '10000'
+      var yield5000 = document.querySelector('#yield-5000')
+      var yield10000 = document.querySelector('#yield-10000')
+      var yield4000 = document.querySelector('#yield-4000')
+
+
+      if (yield5000.checked) {
+        min = min / 2;
+
+        return Math.floor(Math.random() * (min + 200 - min)) + min
+      } else if (yield4000.checked) {
+        min = Math.floor(min / 2.8)
+        return Math.floor(Math.random() * (min + 200 - min)) + min
+      } else {
+        return Math.floor(Math.random() * (min + 200 - min)) + min
+      }
+
+
+    }
+  </script>
+
+  <script>
+    var workshopLoc = localStorage.getItem("workshop")
+    var ShiftLoc = localStorage.getItem('shift')
+    var yieldLoc = localStorage.getItem('yield')
+    var workshopAll = document.getElementsByName('workshopAll')
+    var workshopNone = document.querySelector('#workshopNone')
+    var form = layui.form
+    var ShiftAll = document.getElementsByName('shift')
+    var yieldAll = document.getElementsByName('yield')
+
+    window.onload = function () {
+
+      // 车间赋值
+
+      workshop.value = workshopLoc;
+
+
+
+      // 获取车间
+      for (var i = 0; i < workshopAll.length; i++) {
+        if (workshopAll[i].value == workshop.value) {
+
+          workshopAll[i].setAttribute('selected', true);
+
+
+        }
+      }
+
+      // 获取班次
+      for (var i = 0; i < ShiftAll.length; i++) {
+        if (ShiftAll[i].value == ShiftLoc) {
+          ShiftAll[i].checked = true
+        }
+      }
+
+      // 获取产量
+      for (var i = 0; i < yieldAll.length; i++) {
+        if (yieldAll[i].value == yieldLoc) {
+          yieldAll[i].checked = true
+        }
+      }
+
+      // 更新表单
+      form.render()
+    }
+
+
+    function itemcreate() {
+
+      var shift = '白班'
+      var dayShift = document.querySelector('#day-shift')
+      var nightShift = document.querySelector('#night-shift')
+      var ShiftVal = document.getElementsByName('shift')
+      var workshop = document.querySelector('#workshop')
+      var yield = document.getElementsByName('yield')
+
+      function getShiftValue() {
+        //获取单选按钮值
+        for (var i = 0; i < ShiftVal.length; i++) {
+          if (ShiftVal[i].checked) {
+            var returnTagValue = ShiftVal[i].value; //这里得到单选按钮值
+            return returnTagValue
+
+          }
+        }
+      }
+
+      function getYieldValue() {
+        //获取单选按钮值
+        for (var i = 0; i < yield.length; i++) {
+          if (yield [i].checked) {
+            var returnTagValue = yield [i].value; //这里得到单选按钮值
+            return returnTagValue
+
+          }
+        }
+      }
+      localStorage.setItem("workshop", workshop.value);
+      localStorage.setItem("shift", getShiftValue());
+      localStorage.setItem("yield", getYieldValue());
+
+
+
+      if (dayShift.checked) {
+        shift = "白班"
+
+        // 获取今天日期
+        var nowDay = new Date
+        // 获取当前月份
+        var nowMonth = nowDay.getMonth() + 1;
+        // 获取当前是几号
+        var nowStrDate = nowDay.getDate();
+        // 添加分隔符“-”
+        var seperator = "-";
+
+        // 对月份进行处理，1-9月在前面添加一个“0”
+        if (nowMonth >= 1 && nowMonth <= 9) {
+          nowMonth = "0" + nowMonth;
+        }
+
+        // 对月份日子进行处理，1-9号在前面添加一个“0”
+        if (nowStrDate >= 0 && nowStrDate <= 9) {
+          nowStrDate = "0" + nowStrDate;
+        }
+
+        // 最后拼接字符串，得到一个格式为(yyyy-MM-dd)的日期
+        var nowDate = nowMonth + seperator + nowStrDate;
+        resNowDates = nowDate
+      } else {
+        shift = '夜班'
+
+        // 获取昨天日期
+        var yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+        // 获取当前月份
+        var yesMonth = yesterday.getMonth() + 1;
+        // 获取当前是几号
+        var yesStrDate = yesterday.getDate();
+        // 添加分隔符“-”
+        var seperator = "-";
+
+        // 对月份进行处理，1-9月在前面添加一个“0”
+        if (yesMonth >= 1 && yesMonth <= 9) {
+          yesMonth = "0" + yesMonth;
+        }
+
+        // 对月份日子进行处理，1-9号在前面添加一个“0”
+        if (yesStrDate >= 0 && yesStrDate <= 9) {
+          yesStrDate = "0" + yesStrDate;
+        }
+
+        // 最后拼接字符串，得到一个格式为(yyyy-MM-dd)的日期
+        var yesDate = yesMonth + seperator + yesStrDate;
+        resNowDates = yesDate
+
+      }
+
+      if (workshop.value == 'K07-2F-SWDL-SS-Ironman') {
+        var ele =
+          '<p id="Copyres">' + "K07-2F" + '<br/>' +
+          resNowDates + shift + '<br/>' +
+          'SWDL工站 ' + '<br/>' +
+          'A1 投料' + getRandom(3100) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2200) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3100) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2010) + 'pcs <br/>' +
+          'SS工站' + '<br/>' +
+          'A1 投料' + getRandom(1700) + 'pcs <br/>' +
+          'A2 投料' + getRandom(1500) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3100) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2880) + 'pcs <br/>' +
+          'Ironman工站' + '<br/>' +
+          'A1 投料' + getRandom(2676) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2400) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2180) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2010) + 'pcs <br/>'
+
+
+        document.getElementById("shield-yml").innerHTML = ele;
+
+      } else if (workshop.value == 'K07-2F-X-talk-CSC-VENT2') {
+        var ele =
+          '<p id="Copyres">' + "K07-2F" + '<br/>' +
+          resNowDates + shift + '<br/>' +
+          'X-talk工站' + '<br/>' +
+          'A1 投料' + getRandom(2400) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2200) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2100) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2800) + 'pcs <br/>' +
+          'CSC工站' + '<br/>' +
+          'A1 投料' + getRandom(3800) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2700) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3200) + 'pcs <br/>' +
+          'VENT2工站' + '<br/>' +
+          'A1 投料' + getRandom(2900) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2700) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2030) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2100) + 'pcs <br/>'
+
+
+        document.getElementById("shield-yml").innerHTML = ele;
+
+      } else if (workshop.value == 'K07-2F-X-k-CC-V2-P6.7.10-AT-PT') {
+        var ele =
+          '<p id="Copyres">' + "K07-2F" + '<br/>' +
+          resNowDates + shift + '<br/>' +
+          'X-talk工站' + '<br/>' +
+          'A1 投料' + getRandom(2400) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2200) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2100) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2800) + 'pcs <br/>' +
+          'CSC工站' + '<br/>' +
+          'A1 投料' + getRandom(3800) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2700) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3200) + 'pcs <br/>' +
+          'VENT2工站' + '<br/>' +
+          'A1 投料' + getRandom(2900) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2700) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2030) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2100) + 'pcs <br/>' +
+          'P6工站' + '<br/>' +
+          'A1 投料' + getRandom(3200, 3470) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3500, 3800) + 'pcs <br/>' +
+          'P7工站' + '<br/>' +
+          'A1 投料' + getRandom(3200, 3470) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3200, 3400) + 'pcs <br/>' +
+          'P10工站' + '<br/>' +
+          'A1 投料' + getRandom(3200, 3470) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3200, 3400) + 'pcs <br/>' +
+          'Potato工站' + '<br/>' +
+          'A1 投料' + getRandom(3200, 3470) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3200, 3400) + 'pcs <br/>' +
+          'Atlas工站' + '<br/>' +
+          'A1 投料' + getRandom(3200, 3470) + 'pcs <br/>' +
+          'A2 投料' + getRandom(3200, 3400) + 'pcs <br/>'
+
+
+
+        document.getElementById("shield-yml").innerHTML = ele;
+
+      } else if (workshop.value == 'K02-2F') {
+        var ele =
+          '<p id="Copyres">' + "K02-2F" + '<br/>' +
+          resNowDates + shift + '<br/>' +
+          'SWDL工站 ' + '<br/>' +
+          'A1 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'QT0工站' + '<br/>' +
+          'A1 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'QT1工站' + '<br/>' +
+          'A1 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2200, 3100) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2200, 3100) + 'pcs <br/>' +
+          'PROX工站' + '<br/>' +
+          'A1 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2200, 2900) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2200, 2800) + 'pcs <br/>' +
+          'Lronman工站' + '<br/>' +
+          'A1 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'A2 投料' + getRandom(2200, 2770) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2200, 2900) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2200, 2800) + 'pcs <br/>' +
+          'CSC工站' + '<br/>' +
+          'A1 投料' + getRandom(4000, 4270) + 'pcs <br/>' +
+          'B1 投料' + getRandom(2700, 2800) + 'pcs <br/>' +
+          'B2 投料' + getRandom(2200, 2800) + 'pcs <br/>' +
+          'P6工站' + '<br/>' +
+          'A1 投料' + getRandom(3200, 3470) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3500, 3800) + 'pcs <br/>' +
+          'B2 投料' + getRandom(3200, 3400) + 'pcs <br/>' +
+          'P7工站' + '<br/>' +
+          'A1 投料' + getRandom(3200, 3470) + 'pcs <br/>' +
+          'A2 投料' + getRandom(3500, 3800) + 'pcs <br/>' +
+          'B1 投料' + getRandom(3200, 3400) + 'pcs <br/>' +
+          'SS工站' + '<br/>' +
+          '8线B1 投料' + getRandom(2500, 2770) + 'pcs <br/>' +
+          '8线B2 投料' + getRandom(2800, 2990) + 'pcs <br/>' +
+          '9线A1 投料' + getRandom(2200, 2400) + 'pcs <br/>' +
+          '9线B1 投料' + getRandom(2200, 2400) + 'pcs <br/>'
+
+        document.getElementById("shield-yml").innerHTML = ele;
+      }
+
+
+
+    }
+  </script>
+  <script>
+    // 复制功能
+    function copy(id) {
+
+      let tx = document.getElementById('Copyres');
+      if (tx == null) {
+        layer.msg("无内容", {
+          icon: 2,
+          time: 1000
+        });
+      } else {
+        // 创建select对象与range对象
+        const selection = window.getSelection()
+        const range = document.createRange()
+        // 从当前selection对象中移除所有的range对象, 
+        // 取消所有的选择只 留下anchorNode 和focusNode属性并将其设置为null。
+        // 这里没弄明白为什么需要先remove一下， 也没有太多资料查证 没有这句会复制失败
+        if (selection.rangeCount > 0) selection.removeAllRanges()
+        // 使 Range 包含某个节点的内容 使用这个 或者下面的selectNode都可以
+        // range.selectNodeContents(tx)
+
+
+        // 使 Range 包含某个节点及其内容
+        range.selectNode(tx)
+        // 向选区（Selection）中添加一个区域（Range）
+        selection.addRange(range)
+        // 已复制文字
+        // 
+        // 执行浏览器复制命令
+        document.execCommand('copy')
+        layer.msg("复制成功", {
+          icon: 1,
+          time: 1000
+        });
+
+      }
+
+
+    }
+  </script>
+  <!-- <script src="./js/editor_header.js"></script> -->
+
+</body>
+
+</html>

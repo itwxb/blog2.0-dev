@@ -1,0 +1,84 @@
+.layui-inline {
+    width: 90%;
+    /* text-align: center; */
+    margin-left: 50px;
+}
+
+.layui-input {
+    width: 212px;
+}
+
+.layui-form-select dl dd.layui-this {}
+
+.layui-body {
+    margin-top: 20px;
+    left: 0;
+
+}
+
+.layui-form-item .layui-input-inline {
+    height: 300px;
+    width: 80% !important;
+    display: block;
+    float: none;
+
+}
+
+.layui-form-select dl {
+    min-width: 100px;
+    overflow-x: hidden;
+}
+
+
+.layui-form-select {
+    width: 265px;
+}
+
+.layui-form-select .layui-edge {
+    right: 60px;
+}
+
+.layui-input-block.center-btn {
+    margin: 0;
+    text-align: left;
+}
+
+@media screen and (max-width:700px) {
+
+    .layui-body {
+
+        left: -33px;
+        right: 0;
+    }
+
+    .layui-form-item {
+        width: 100%;
+    }
+
+    .layui-textarea {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .layui-btn {
+        width: 80%;
+        font-size: 30px;
+        height: 50px;
+    }
+
+    .layui-form-item .layui-input-inline {
+        margin: 0 auto;
+    }
+
+    .layui-input-block.center-btn {
+        margin: 0;
+        text-align: center;
+    }
+
+
+
+    .layui-form-select dl dd,
+    .layui-form-select dl dt {
+        text-align: left;
+    }
+}
