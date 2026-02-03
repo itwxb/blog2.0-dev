@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   name: string
   color: 'blue' | 'green' | 'yellow' | 'red' | 'purple'
 }>()

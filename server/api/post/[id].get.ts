@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
     })
 
     return data
-  } catch (error) {
+  } catch {
     throw createError({
       statusCode: 404,
       statusMessage: 'Post not found'

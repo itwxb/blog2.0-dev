@@ -1,12 +1,15 @@
 <template>
-  <div id="vcomments"></div>
+  <div id="vcomments"/>
 </template>
 
 <script setup>
 import { onMounted } from 'vue'
 
 const props = defineProps({
-  path: String
+  path: {
+    type: String,
+    default: ''
+  }
 })
 
 onMounted(async () => {

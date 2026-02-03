@@ -6,7 +6,7 @@
           src="https://s2.loli.net/2022/11/27/QhkmBtI7xK2LGNb.jpg" 
           alt="avatar" 
           class="w-24 h-24 rounded-full border-4 border-white shadow-md mb-4"
-        />
+        >
         <h1 class="text-3xl font-bold text-gray-900">关于我</h1>
         <p class="text-gray-500 mt-2">王勇博 (Arbor)</p>
       </div>
@@ -15,7 +15,7 @@
         <!-- 基本信息 -->
         <section>
           <h2 class="text-xl font-bold text-blue-600 mb-4 flex items-center gap-2">
-            <span class="w-1 h-6 bg-blue-600 rounded-full"></span>
+            <span class="w-1 h-6 bg-blue-600 rounded-full"/>
             基本信息
           </h2>
           <div class="bg-gray-50 rounded-xl p-6 text-gray-700 leading-relaxed space-y-2">
@@ -32,20 +32,20 @@
         <!-- 社交平台 -->
         <section>
           <h2 class="text-xl font-bold text-blue-600 mb-4 flex items-center gap-2">
-            <span class="w-1 h-6 bg-blue-600 rounded-full"></span>
+            <span class="w-1 h-6 bg-blue-600 rounded-full"/>
             社交平台
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SocialCard label="微信" value="wyb2017n" icon="ri:wechat-fill" />
             <SocialCard label="QQ" value="3035931836" icon="ri:qq-fill" />
-            <SocialCard label="Email" value="arborxb@163.com" icon="lucide:mail" isLink href="mailto:arborxb@163.com" />
+            <SocialCard label="Email" value="arborxb@163.com" icon="lucide:mail" is-link href="mailto:arborxb@163.com" />
             <SocialCard label="交流Q群" value="828789351" icon="lucide:users" />
             
             <SocialCard 
               label="BiliBili" 
               value="偶尔录制点测评视频" 
               icon="ri:bilibili-fill" 
-              isLink 
+              is-link 
               href="https://space.bilibili.com/688238053" 
             />
             
@@ -53,7 +53,7 @@
               label="抖音" 
               value="无聊我就刷抖音" 
               icon="ri:tiktok-fill" 
-              isLink 
+              is-link 
               href="https://v.douyin.com/iDTnsanr" 
             />
             
@@ -61,7 +61,7 @@
               label="GitHub" 
               value="全球最大的同性交友网站" 
               icon="lucide:github" 
-              isLink 
+              is-link 
               href="https://github.com/itwxb" 
             />
           </div>
@@ -70,7 +70,7 @@
         <!-- 专业技能 -->
         <section>
           <h2 class="text-xl font-bold text-blue-600 mb-4 flex items-center gap-2">
-            <span class="w-1 h-6 bg-blue-600 rounded-full"></span>
+            <span class="w-1 h-6 bg-blue-600 rounded-full"/>
             专业技能
           </h2>
           <div class="flex flex-wrap gap-3">

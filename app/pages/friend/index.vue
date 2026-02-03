@@ -12,11 +12,11 @@
 
     <!-- 友链卡片 -->
     <div v-if="pending" class="flex justify-center py-20">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"/>
     </div>
     <div v-else-if="error" class="text-center py-20">
       <div class="text-red-500 mb-4">加载失败: {{ error.message }}</div>
-      <button @click="refresh()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">重试</button>
+      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="refresh()">重试</button>
     </div>
     <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <a 
@@ -63,7 +63,7 @@
           target="_blank"
           class="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors group"
         >
-          <span class="w-1.5 h-1.5 rounded-full bg-blue-400 group-hover:scale-150 transition-transform"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-400 group-hover:scale-150 transition-transform"/>
           {{ lib.name }}
         </a>
       </div>
@@ -77,9 +77,11 @@
 </template>
 
 <script setup lang="ts">
-const friends = ref<any[]>([])
+import type { Friend, GitHubContent } from '~/utils/types'
 
-const { data, pending, error, refresh } = await useFetch('/api/content', {
+const friends = ref<Friend[]>([])
+
+const { data, pending, error, refresh } = await useFetch<GitHubContent>('/api/content', {
   query: { 
     repo: 'blogUse', 
     path: 'friends.md' 
@@ -121,10 +123,11 @@ watch(data, (newData) => {
 }, { immediate: true })
 
 const libs = [
-  { name: "Nuxt 3", url: "https://nuxt.com" },
+  { name: "Nuxt 4", url: "https://nuxt.com" },
   { name: "Vue 3", url: "https://vuejs.org" },
   { name: "Tailwind CSS", url: "https://tailwindcss.com" },
   { name: "TypeScript", url: "https://www.typescriptlang.org" },
+  { name: "ESLint", url: "https://eslint.org" },
   { name: "Marked", url: "https://github.com/markedjs/marked" },
   { name: "Valine", url: "https://valine.js.org" },
   { name: "Vite", url: "https://vitejs.dev" },

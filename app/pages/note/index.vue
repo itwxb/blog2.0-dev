@@ -15,7 +15,7 @@
 
     <!-- 加载状态 (初次加载) -->
     <div v-if="pending && page === 1" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div v-for="i in 6" :key="i" class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 animate-pulse h-24"></div>
+      <div v-for="i in 6" :key="i" class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 animate-pulse h-24"/>
     </div>
 
     <!-- Error State (Initial) -->
@@ -25,8 +25,8 @@
         <span>加载失败: {{ error.message }}</span>
       </div>
       <button 
-        @click="refresh()" 
-        class="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-100"
+        class="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-100" 
+        @click="refresh()"
       >
         重试一下
       </button>
@@ -53,12 +53,12 @@
       <div v-if="!isEnd" ref="sentinelRef" class="pt-8">
         <!-- Loading More -->
         <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div v-for="i in 2" :key="i" class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 animate-pulse h-24"></div>
+          <div v-for="i in 2" :key="i" class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 animate-pulse h-24"/>
         </div>
         <!-- Error Loading More -->
         <div v-else-if="error" class="bg-red-50 text-red-600 p-4 rounded-xl text-center border border-red-100 flex items-center justify-center gap-4">
           <span>加载失败，请重试</span>
-          <button @click="refresh" class="px-4 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm">
+          <button class="px-4 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm" @click="refresh">
             重试
           </button>
         </div>
@@ -82,9 +82,11 @@
 </template>
 
 <script setup lang="ts">
+import type { Post } from '~/utils/types'
+
 const page = ref(1)
 const size = 20
-const posts = ref<any[]>([])
+const posts = ref<Post[]>([])
 const isEnd = ref(false)
 
 // 响应侧边栏状态

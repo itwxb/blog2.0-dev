@@ -37,8 +37,8 @@
         </div>
         
         <button 
-          @click="checkPassword"
           class="w-full py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 flex items-center justify-center gap-2"
+          @click="checkPassword"
         >
           <Icon name="lucide:key-round" class="w-4 h-4" />
           解锁笔记
@@ -46,7 +46,7 @@
 
         <div class="relative py-2">
           <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-100"></div>
+            <div class="w-full border-t border-gray-100"/>
           </div>
           <div class="relative flex justify-center text-xs uppercase">
             <span class="bg-white px-2 text-gray-400">或者</span>
@@ -54,8 +54,8 @@
         </div>
 
         <button 
-          @click="goToRandomPage"
           class="w-full py-3 bg-gray-50 text-gray-600 rounded-xl font-medium hover:bg-gray-100 transition-all flex items-center justify-center gap-2 border border-gray-100"
+          @click="goToRandomPage"
         >
           <Icon name="lucide:shuffle" class="w-4 h-4" />
           随便逛逛
@@ -74,7 +74,7 @@
       <div v-else-if="error && page === 1" class="bg-red-50 text-red-600 p-8 rounded-xl text-center border border-red-100">
         <Icon name="lucide:alert-circle" class="text-4xl mb-2 mx-auto" />
         <p>获取文章失败，请稍后再试。</p>
-        <button @click="refresh" class="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+        <button class="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors" @click="refresh">
           重试
         </button>
       </div>
@@ -132,7 +132,7 @@
           <!-- Error Loading More -->
           <div v-else-if="error" class="bg-red-50 text-red-600 p-4 rounded-xl text-center border border-red-100 flex items-center justify-center gap-4">
             <span>加载失败，请重试</span>
-            <button @click="refresh" class="px-4 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm">
+            <button class="px-4 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm" @click="refresh">
               重试
             </button>
           </div>
@@ -158,11 +158,12 @@
 
 <script setup lang="ts">
 import { NAV_ITEMS } from '~/utils/constants'
+import type { Post } from '~/utils/types'
 
 const page = ref(1)
 const size = 10
 const isEnd = ref(false)
-const posts = ref<any[]>([])
+const posts = ref<Post[]>([])
 
 const router = useRouter()
 
@@ -215,7 +216,7 @@ const { sentinelRef } = useInfiniteScroll(() => {
 })
 
 // 当数据返回时，如果是第一页则覆盖，否则追加
-watch(data, (newData: any) => {
+watch(data, (newData: Post[] | null) => {
   if (newData) {
     if (newData.length < size) {
       isEnd.value = true

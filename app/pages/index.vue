@@ -1,18 +1,18 @@
 <template>
   <div class="h-screen w-screen flex flex-col items-center justify-center bg-white p-4 relative overflow-hidden">
     <!-- 背景装饰 (可选) -->
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-white -z-10"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-white -z-10"/>
 
     <h3 class="text-xl md:text-2xl font-medium text-blue-800/80 text-center max-w-3xl leading-relaxed animate-fade-in">
       {{ randomQuote }}
     </h3>
     
-    <div class="w-24 h-1 bg-gray-200 my-8 rounded-full"></div>
+    <div class="w-24 h-1 bg-gray-200 my-8 rounded-full"/>
 
     <div class="flex gap-4">
       <button 
-        @click="goToRandomPage"
         class="px-8 py-2 bg-white border border-gray-100 text-gray-700 rounded-lg shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300"
+        @click="goToRandomPage"
       >
         Blog
       </button>

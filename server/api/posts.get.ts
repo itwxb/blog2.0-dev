@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     : {}
 
   try {
-    const params: any = {
+    const params: Record<string, string | number | boolean | undefined> = {
       page,
       per_page: size,
       filter: 'created',

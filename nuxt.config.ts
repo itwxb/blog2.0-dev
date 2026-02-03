@@ -6,14 +6,18 @@ if (!process.env.GITHUB_TOKEN) {
 }
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
+  compatibilityDate: '2026-02-03',
+  future: {
+    compatibilityVersion: 4,
+  },
   ssr: true,
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'], // 引入全局样式 防止首屏闪烁
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@nuxt/icon'
+    '@nuxt/icon',
+    '@nuxt/eslint'
   ],
   app: {
     head: {

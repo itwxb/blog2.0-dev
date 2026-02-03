@@ -28,22 +28,23 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const data: any = await $fetch(`${BASE_URL}/repos/${owner}/${repo}/contents/${path}`, {
+    const data = await $fetch<Record<string, unknown>>(`${BASE_URL}/repos/${owner}/${repo}/contents/${path}`, {
       headers
     })
     
     // GitHub content API returns base64 encoded content
     if (data.content && data.encoding === 'base64') {
-      const content = Buffer.from(data.content, 'base64').toString('utf-8')
+      const content = Buffer.from(data.content as string, 'base64').toString('utf-8')
       return { ...data, decodedContent: content }
     }
     
     return data
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('GitHub API Error:', error)
+    const err = error as { response?: { status: number }, message: string }
     throw createError({
-      statusCode: error.response?.status || 500,
-      statusMessage: error.message,
+      statusCode: err.response?.status || 500,
+      statusMessage: err.message,
     })
   }
 })

@@ -1,15 +1,16 @@
 # 🚀 WYB Blog Next
 
-> 一个基于 Nuxt 3 构建的现代化、高性能个人博客系统。使用 GitHub Issues 作为无头 CMS (Headless CMS)。
+> 一个基于 Nuxt 4 (Future Compatible) 构建的现代化、高性能个人博客系统。使用 GitHub Issues 作为无头 CMS (Headless CMS)。
 
-[![Nuxt 3](https://img.shields.io/badge/Nuxt-3.x-00DC82?style=flat-square&logo=nuxt.svg)](https://nuxt.com/)
+[![Nuxt 4](https://img.shields.io/badge/Nuxt-4.x-00DC82?style=flat-square&logo=nuxt.svg)](https://nuxt.com/)
 [![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D?style=flat-square&logo=vue.js)](https://vuejs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 
 ## ✨ 特性
 
-- **现代化技术栈**：基于 Nuxt 3 + Vue 3 + Vite + TypeScript 构建，享受极致的开发体验和运行性能。
+- **现代化技术栈**：基于 Nuxt 4 + Vue 3 + Vite + TypeScript 构建，采用最新的 `app/` 目录结构，享受极致的开发体验和运行性能。
+- **严格规范**：遵循最严格的代码规范，集成 ESLint 和 TypeScript 类型检查，确保代码质量。
 - **无头 CMS**：直接使用 GitHub Issues 撰写和管理文章，无需搭建复杂的后台数据库。
 - **安全可靠**：采用 Server API 代理模式，GitHub Token 仅在服务端流转，彻底杜绝前端密钥泄露风险。
 - **极致性能**：
@@ -30,10 +31,11 @@
 
 ## 🛠️ 技术栈
 
-- **核心框架**: [Nuxt 3](https://nuxt.com/)
+- **核心框架**: [Nuxt 4](https://nuxt.com/)
 - **UI 框架**: [Tailwind CSS](https://tailwindcss.com/)
 - **图标库**: [Nuxt Icon](https://github.com/nuxt-modules/icon) (基于 Iconify)
 - **状态管理**: [Pinia](https://pinia.vuejs.org/)
+- **代码规范**: ESLint + TypeScript
 - **Markdown 解析**: [Marked](https://marked.js.org/)
 - **评论系统**: [Valine](https://valine.js.org/)
 
@@ -41,7 +43,7 @@
 
 ### 前置要求
 
-- [Node.js](https://nodejs.org/) ≥18.x（推荐 20.x+，已验证 20.19.6 可用）
+- [Node.js](https://nodejs.org/) ≥18.x（推荐 20.x+）
 - 包管理器 (npm / yarn / pnpm)
 
 ### 1. 克隆项目
@@ -109,19 +111,32 @@ npm run dev
 ## 📂 目录结构
 
 ```
-├── assets/          # 静态资源 (CSS, Images)
-├── components/      # Vue 组件
-├── composables/     # 组合式函数 (状态管理、无限滚动等)
-├── layouts/         # 页面布局
-├── pages/           # 页面路由 (基于文件系统)
-├── public/          # 公共静态文件
-├── server/          # 服务端 API (Nitro)
-│   └── api/         # 后端接口代理
-├── utils/           # 工具函数与常量
-├── app.vue          # 应用入口
-├── nuxt.config.ts   # Nuxt 配置文件
-└── package.json     # 项目依赖
+├── app/               # Nuxt 4 源码目录
+│   ├── assets/        # 静态资源 (CSS)
+│   ├── components/    # Vue 组件
+│   ├── composables/   # 组合式函数
+│   ├── layouts/       # 页面布局
+│   ├── pages/         # 页面路由
+│   ├── utils/         # 工具函数、类型定义与常量
+│   └── app.vue        # 应用入口
+├── public/            # 公共静态文件 (图片、静态 HTML 等)
+├── server/            # 服务端 API (Nitro)
+│   └── api/           # 后端接口代理
+├── nuxt.config.ts     # Nuxt 配置文件
+└── package.json       # 项目依赖
 ```
+
+## 💡 开发建议
+
+为了保持代码的高质量和项目的长期可维护性，请遵循以下规范：
+
+- **目录规范**：按照 Nuxt 4 标准，所有新页面、组件、组合式函数均需在 `app/` 目录下创建。
+- **类型安全**：
+  - 严格遵守 TypeScript 规范，避免使用 `any` 类型。
+  - 优先复用 `app/utils/types.ts` 中定义的接口。
+  - 新的数据结构应及时补充到类型定义文件中。
+- **代码检查**：提交代码前请运行 `npm run lint`，确保符合项目定义的 ESLint 规范。
+- **静态资源**：图片、第三方库等无需构建的文件请放置在 `public/` 目录下。
 
 ## 🚢 部署与构建
 

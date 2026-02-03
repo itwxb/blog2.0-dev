@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, watch, type Ref } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 export function useInfiniteScroll(callback: () => void, options: { threshold?: number; rootMargin?: string } = {}) {
   const sentinelRef = ref<HTMLElement | null>(null)

@@ -14,11 +14,11 @@
           <div class="flex items-center min-w-max">
             <div class="relative w-10 h-10 flex items-center justify-center shrink-0">
               <!-- 呼吸灯底影 -->
-              <div class="absolute inset-0 bg-blue-500/20 rounded-xl blur-lg animate-pulse-slow"></div>
+              <div class="absolute inset-0 bg-blue-500/20 rounded-xl blur-lg animate-pulse-slow"/>
               <!-- 背景渐变层 -->
-              <div class="absolute inset-0 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-xl shadow-[0_4px_12px_rgba(37,99,235,0.3)] transition-transform duration-500 group-hover/sidebar-header:scale-110 group-hover/sidebar-header:rotate-6"></div>
+              <div class="absolute inset-0 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-xl shadow-[0_4px_12px_rgba(37,99,235,0.3)] transition-transform duration-500 group-hover/sidebar-header:scale-110 group-hover/sidebar-header:rotate-6"/>
               <!-- 内部高光边缘 -->
-              <div class="absolute inset-[1px] border border-white/20 rounded-[11px] z-10"></div>
+              <div class="absolute inset-[1px] border border-white/20 rounded-[11px] z-10"/>
               <Icon name="lucide:rocket" class="relative z-20 text-white w-5 h-5 -rotate-12 transition-all duration-500 group-hover/sidebar-header:rotate-0 group-hover/sidebar-header:scale-110 animate-pulse-slow" />
             </div>
             <div 
@@ -34,9 +34,9 @@
           
           <!-- 桌面端收起按钮 (移至顶部) -->
           <button 
-            @click="isSidebarCollapsed = !isSidebarCollapsed"
             class="hidden lg:flex items-center justify-center p-1.5 rounded-md hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-all duration-300"
             :class="isSidebarCollapsed ? 'rotate-180' : ''"
+            @click="isSidebarCollapsed = !isSidebarCollapsed"
           >
             <Icon name="lucide:chevron-left" class="w-5 h-5" />
           </button>
@@ -77,7 +77,7 @@
                 >
                   {{ item.text }}
                   <!-- Tooltip 小箭头 -->
-                  <div class="absolute right-full top-1/2 -translate-y-1/2 border-8 border-transparent border-right-gray-900 mr-[-1px]"></div>
+                  <div class="absolute right-full top-1/2 -translate-y-1/2 border-8 border-transparent border-right-gray-900 mr-[-1px]"/>
                 </div>
               </NuxtLink>
             </li>
@@ -99,15 +99,15 @@
       v-if="isMobileMenuOpen" 
       class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
       @click="isMobileMenuOpen = false"
-    ></div>
+    />
 
     <!-- 主内容区 -->
     <div class="flex-1 flex flex-col min-w-0">
       <!-- 顶部导航栏 -->
       <header class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30 h-16 flex items-center px-4 lg:px-8">
         <button 
-          @click="isMobileMenuOpen = !isMobileMenuOpen"
           class="lg:hidden p-2 -ml-2 mr-2 rounded-lg hover:bg-gray-100 text-gray-600"
+          @click="isMobileMenuOpen = !isMobileMenuOpen"
         >
           <Icon name="lucide:menu" class="w-6 h-6" />
         </button>
@@ -117,18 +117,18 @@
             src="https://s2.loli.net/2022/11/27/QhkmBtI7xK2LGNb.jpg" 
             alt="avatar" 
             class="w-9 h-9 rounded-full border border-gray-200 hidden sm:block"
-          />
+          >
           <div class="flex flex-col">
             <h1 class="text-sm font-semibold text-gray-800 leading-none mb-1">王勇博的博客</h1>
             <div class="flex items-center gap-2 text-[10px] sm:text-xs font-medium leading-none">
               <div class="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-100/50">
                 <span class="relative flex h-1.5 w-1.5">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"/>
+                  <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"/>
                 </span>
                 <span class="truncate max-w-[150px] sm:max-w-none">梦想之都 MC Server</span>
               </div>
-              <span class="hidden sm:block w-px h-3 bg-gray-200 mx-1"></span>
+              <span class="hidden sm:block w-px h-3 bg-gray-200 mx-1"/>
               <a 
                 href="https://www.mxzd.games" 
                 target="_blank" 

@@ -12,15 +12,15 @@
 
     <!-- 加载状态 -->
     <div v-if="pending" class="flex justify-center py-20">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"/>
     </div>
 
     <!-- 错误状态 -->
     <div v-else-if="error" class="text-center py-20">
       <div class="text-red-500 mb-4">加载失败: {{ error.message }}</div>
       <button 
-        @click="refresh()" 
-        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors" 
+        @click="refresh()"
       >
         重试
       </button>
@@ -52,9 +52,11 @@
 </template>
 
 <script setup lang="ts">
-const presentations = ref<any[]>([])
+import type { Presentation, GitHubContent } from '~/utils/types'
 
-const { data, pending, error, refresh } = await useFetch('/api/content', {
+const presentations = ref<Presentation[]>([])
+
+const { data, pending, error, refresh } = await useFetch<GitHubContent>('/api/content', {
   query: { 
     repo: 'blogUse', 
     path: 'tools.md' 

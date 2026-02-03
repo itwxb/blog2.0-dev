@@ -4,11 +4,11 @@
     :class="isSidebarCollapsed ? 'max-w-6xl' : 'max-w-4xl'"
   >
     <!-- Sticky Top Actions / Breadcrumbs -->
-    <div class="sticky top-0 z-30 -mx-4 px-4 py-3 bg-gray-50/80 backdrop-blur-md border-b border-transparent transition-all" id="detail-nav">
+    <div id="detail-nav" class="sticky top-0 z-30 -mx-4 px-4 py-3 bg-gray-50/80 backdrop-blur-md border-b border-transparent transition-all">
       <div class="flex items-center justify-between">
         <button 
-          @click="goBack"
           class="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors group"
+          @click="goBack"
         >
           <div class="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:border-blue-200 group-hover:bg-blue-50 transition-all">
             <Icon name="lucide:arrow-left" class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
@@ -26,13 +26,13 @@
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden min-h-[50vh]">
       <div v-if="pending" class="p-8 lg:p-12 space-y-6">
-        <div class="h-10 bg-gray-50 rounded-lg w-3/4 animate-pulse"></div>
+        <div class="h-10 bg-gray-50 rounded-lg w-3/4 animate-pulse"/>
         <div class="flex gap-4">
-          <div class="h-4 bg-gray-50 rounded w-24 animate-pulse"></div>
-          <div class="h-4 bg-gray-50 rounded w-32 animate-pulse"></div>
+          <div class="h-4 bg-gray-50 rounded w-24 animate-pulse"/>
+          <div class="h-4 bg-gray-50 rounded w-32 animate-pulse"/>
         </div>
         <div class="space-y-3 mt-10">
-          <div v-for="i in 10" :key="i" :class="['h-4 bg-gray-50 rounded animate-pulse', i % 3 === 0 ? 'w-full' : 'w-5/6']"></div>
+          <div v-for="i in 10" :key="i" :class="['h-4 bg-gray-50 rounded animate-pulse', i % 3 === 0 ? 'w-full' : 'w-5/6']"/>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
           <Icon name="lucide:alert-circle" class="w-8 h-8" />
         </div>
         <p class="text-gray-500">文章加载失败，可能已被删除或网络连接问题</p>
-        <button @click="router.back()" class="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all">
+        <button class="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all" @click="router.back()">
           返回上一页
         </button>
       </div>
@@ -83,10 +83,11 @@
         </header>
 
         <!-- Content -->
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div 
           class="prose prose-lg prose-blue prose-img:rounded-2xl prose-headings:text-gray-900 prose-a:no-underline hover:prose-a:underline max-w-4xl mx-auto" 
           v-html="renderedContent"
-        ></div>
+        />
         
         <!-- Footer Info -->
         <div class="mt-16 pt-8 border-t border-gray-50 flex items-center justify-between text-sm text-gray-400">
@@ -101,9 +102,9 @@
     <!-- Back to Top FAB -->
     <button 
       v-show="showBackToTop"
-      @click="scrollToTop"
       class="fixed bottom-8 right-8 w-12 h-12 bg-white shadow-xl border border-gray-100 rounded-full flex items-center justify-center text-gray-400 hover:text-blue-600 hover:border-blue-200 transition-all z-50 hover:-translate-y-1"
       title="回到顶部"
+      @click="scrollToTop"
     >
       <Icon name="lucide:arrow-up" class="w-5 h-5" />
     </button>
@@ -112,6 +113,7 @@
 
 <script setup lang="ts">
 import { marked } from 'marked'
+import type { Post } from '~/utils/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -121,7 +123,7 @@ const showBackToTop = ref(false)
 // 使用共享的侧边栏状态来动态调整宽度
 const { isSidebarCollapsed } = useSidebar()
 
-const { data: post, pending, error } = await useFetch(`/api/post/${id}`)
+const { data: post, pending, error } = await useFetch<Post>(`/api/post/${id}`)
 
 const renderedContent = computed(() => {
   if (!post.value?.body) return ''
