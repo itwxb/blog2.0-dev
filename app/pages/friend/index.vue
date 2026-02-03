@@ -77,6 +77,7 @@
 </template>
 
 <script setup lang="ts">
+import { useHead } from 'nuxt/app'
 import type { Friend, GitHubContent } from '~/utils/types'
 
 const friends = ref<Friend[]>([])
@@ -127,6 +128,16 @@ const libs = [
   { name: "Vue 3", url: "https://vuejs.org" },
   { name: "Tailwind CSS", url: "https://tailwindcss.com" },
   { name: "TypeScript", url: "https://www.typescriptlang.org" },
+  { name: "Iconify", url: "https://iconify.design" },
+  
+
+
+
+
+
+
+
+  
   { name: "ESLint", url: "https://eslint.org" },
   { name: "Marked", url: "https://github.com/markedjs/marked" },
   { name: "Valine", url: "https://valine.js.org" },

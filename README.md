@@ -33,7 +33,7 @@
 
 - **核心框架**: [Nuxt 4](https://nuxt.com/)
 - **UI 框架**: [Tailwind CSS](https://tailwindcss.com/)
-- **图标库**: [Nuxt Icon](https://github.com/nuxt-modules/icon) (基于 Iconify)
+- **图标系统**: [Nuxt Icon](https://github.com/nuxt-modules/icon) (基于 [Iconify](https://iconify.design/)) - 支持 200,000+ 开源图标
 - **状态管理**: [Pinia](https://pinia.vuejs.org/)
 - **代码规范**: ESLint + TypeScript
 - **Markdown 解析**: [Marked](https://marked.js.org/)
@@ -135,6 +135,7 @@ npm run dev
   - 严格遵守 TypeScript 规范，避免使用 `any` 类型。
   - 优先复用 `app/utils/types.ts` 中定义的接口。
   - 新的数据结构应及时补充到类型定义文件中。
+- **图标使用**：项目集成 `Iconify`。使用方式：`<Icon name="lucide:name" />`。可在 [icones.js.org](https://icones.js.org/) 查找图标。
 - **代码检查**：提交代码前请运行 `npm run lint`，确保符合项目定义的 ESLint 规范。
 - **静态资源**：图片、第三方库等无需构建的文件请放置在 `public/` 目录下。
 
@@ -168,7 +169,8 @@ npm run generate
 
 ### 3. 部署平台推荐
 
-- **Vercel (首选)**: 零配置部署。在 Vercel 导入仓库，并在项目设置中配置好 `.env` 中的环境变量，Vercel 会自动识别 Nuxt 3 并完成构建。
+- **[EdgeOne](https://edgeone.cloud.tencent.com/) (首选)**: 腾讯云边缘函数计算，国内生态极佳，支持通过 Gitee 直接部署，提供极致的访问加速。
+- **[Vercel](https://vercel.com/)**: 国际化部署首选，零配置。在 Vercel 导入仓库，并在项目设置中配置好 `.env` 中的环境变量，Vercel 会自动识别并完成构建。
 - **私有服务器 (Node.js)**: 将构建后的 `.output` 目录上传到服务器，使用 PM2 或直接执行 `node .output/server/index.mjs` 启动。
 - **Docker**:
   ```bash

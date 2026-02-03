@@ -16,7 +16,7 @@
       </div>
     </div>
     <div v-if="isLink" class="ml-auto text-gray-300 group-hover:text-blue-400">
-      ↗
+      <Icon name="lucide:external-link" class="w-4 h-4" />
     </div>
   </component>
 </template>
